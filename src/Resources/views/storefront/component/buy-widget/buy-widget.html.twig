@@ -1,0 +1,54 @@
+{% sw_extends '@Storefront/storefront/component/buy-widget/buy-widget.html.twig' %}
+
+{% block buy_widget_buy_form %}
+    {{ parent() }}
+
+    {% set bundles = product.extensions.bundleProducts ?? null %}
+
+    {% if bundles and bundles|length > 0 %}
+        <div class="product-bundle-list mt-4">
+            {% for bundle in bundles %}
+                {% if bundle.active and bundle.assignedProducts and bundle.assignedProducts|length > 0 %}
+                    <div class="card mb-3 product-bundle-card">
+                        <div class="card-body">
+                            <h3 class="h5 mb-2">
+                                {{ bundle.name ?: 'Product Bundle'|trans|sw_sanitize }}
+                            </h3>
+
+                            {% if bundle.description %}
+                                <p class="mb-3">{{ bundle.description }}</p>
+                            {% endif %}
+
+                            <p class="small text-muted mb-3">
+                                Bundle products are added to the cart together with the main product.
+                            </p>
+
+                            <ul class="list-unstyled mb-0">
+                                {% for assignedProduct in bundle.assignedProducts %}
+                                    {% set bundledProduct = assignedProduct.product %}
+                                    {% set productName = bundledProduct.translated.name ?: bundledProduct.name ?: bundledProduct.productNumber %}
+
+                                    <li class="d-flex justify-content-between align-items-start py-1">
+                                        <span>
+                                            {{ productName }}
+
+                                            {% if bundledProduct.options is defined and bundledProduct.options|length > 0 %}
+                                                <small class="text-muted d-block">
+                                                    {% for option in bundledProduct.options %}
+                                                        {{ option.translated.name ?: option.name }}{% if not loop.last %} / {% endif %}
+                                                    {% endfor %}
+                                                </small>
+                                            {% endif %}
+                                        </span>
+
+                                        <span class="ms-3">x{{ assignedProduct.quantity }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

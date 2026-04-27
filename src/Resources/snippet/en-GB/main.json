@@ -1,0 +1,8 @@
+{
+    "product-bundle": {
+        "title": "Bundle Products",
+        "addProduct": "Add Product",
+        "quantity": "Quantity",
+        "deleteConfirm": "Are you sure you want to delete this item?"
+    }
+}

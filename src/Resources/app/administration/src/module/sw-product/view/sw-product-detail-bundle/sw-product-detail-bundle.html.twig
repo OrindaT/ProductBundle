@@ -1,0 +1,99 @@
+<div class="sw-product-detail-bundle">
+   <sw-card title="Bundle Products">
+      <div class="sw-product-detail-bundle__actions">
+         <sw-button variant="primary" @click="onCreateBundle">
+            Add Bundle
+         </sw-button>
+         <sw-button
+            v-if="selectedBundle"
+            variant="danger"
+            @click="deleteBundle"
+         >
+            Delete Bundle
+         </sw-button>
+      </div>
+
+      <div v-if="bundles.length > 0" class="sw-product-detail-bundle__bundle-panel">
+         <div class="sw-product-detail-bundle__bundle-list-label">
+            Bundles
+         </div>
+         <div class="sw-product-detail-bundle__bundle-list">
+            <sw-button
+               v-for="bundle in bundles"
+               :key="bundle.id"
+               class="sw-product-detail-bundle__bundle-button"
+               size="small"
+               :variant="selectedBundleId === bundle.id ? 'primary' : 'ghost'"
+               @click="onSelectBundle(bundle.id)"
+            >
+               {{ getBundleLabel(bundle) }}
+            </sw-button>
+         </div>
+      </div>
+
+      <template v-if="selectedBundle">
+         <sw-text-field
+            v-model:value="selectedBundle.name"
+            label="Bundle name"
+            placeholder="Enter bundle name"
+            @change="onBundleFieldChange"
+         />
+         <sw-textarea-field
+            v-model:value="selectedBundle.description"
+            label="Bundle description"
+            placeholder="Enter bundle description"
+            @change="onBundleFieldChange"
+         />
+         <sw-switch-field
+            v-model:value="selectedBundle.active"
+            label="Active"
+            @change="onBundleFieldChange"
+         />
+
+         <sw-entity-single-select
+            :value="selectedProduct ? selectedProduct.id : null"
+            @update:value="onProductSelect"
+            entity="product"
+            label="Select Product"
+         />
+         <sw-button @click="onAddProduct">Add to Bundle</sw-button>
+
+         <sw-data-grid
+            v-if="assignedProducts.length > 0"
+            :data-source="assignedProducts"
+            :columns="[
+            { property: 'product', label: 'Product' },
+            { property: 'quantity', label: 'Quantity' }
+            ]"
+         >
+            <template #column-product="{ item }">
+               {{ getProductLabel(item) }}
+            </template>
+            <template #column-quantity="{ item }">
+               <sw-number-field
+                  v-model="item.quantity"
+                  :min="1"
+                  @change="updateAssignedProduct(item)"
+               />
+            </template>
+            <template #actions="{ item }">
+               <sw-context-menu-item
+                  variant="danger"
+                  @click="deleteProduct(item)"
+               >
+                  Delete
+               </sw-context-menu-item>
+            </template>
+         </sw-data-grid>
+         <sw-empty-state
+            v-else
+            title="No products in bundle"
+         />
+      </template>
+
+      <sw-empty-state
+         v-else
+         title="No bundles configured"
+      />
+   </sw-card>
+</div>

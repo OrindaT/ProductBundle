@@ -1,0 +1,25 @@
+{
+  "base": "/bundles/product/administration/",
+  "entryPoints": {
+    "product-bundle": {
+      "css": [
+        "/bundles/product/administration/assets/product-bundle-RaADlbEL.css"
+      ],
+      "dynamic": [],
+      "js": [
+        "/bundles/product/administration/assets/product-bundle-DSoAGYIe.js"
+      ],
+      "legacy": false,
+      "preload": []
+    }
+  },
+  "legacy": false,
+  "metadatas": {},
+  "version": [
+    "7.1.0",
+    7,
+    1,
+    0
+  ],
+  "viteServer": null
+}

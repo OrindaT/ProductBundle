@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="ProductBundle\Core\Content\ProductBundle\ProductBundleDefinition">
+            <tag name="shopware.entity.definition" entity="product_bundle" />
+        </service>
+
+        <service id="ProductBundle\Core\Content\ProductBundleTranslation\ProductBundleTranslationDefinition">
+            <tag name="shopware.entity.definition" entity="product_bundle_translation" />
+        </service>
+
+        <service id="ProductBundle\Core\Content\ProductBundleAssignedProducts\ProductBundleAssignedProductsDefinition">
+            <tag name="shopware.entity.definition" entity="product_bundle_assigned_products" />
+        </service>
+
+        <service id="ProductBundle\Storefront\Subscriber\ProductSubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="ProductBundle\Storefront\Subscriber\BundleCartSubscriber">
+            <argument type="service" id="product.repository" />
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="ProductBundle\Extension\ProductExtension">
+            <tag name="shopware.entity.extension" />
+        </service>
+
+
+    </services>
+</container>

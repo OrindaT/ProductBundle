@@ -1,0 +1,11 @@
+{% sw_extends '@Storefront/storefront/component/product/card/badges.html.twig' %}
+
+{% block component_product_badges_new %}
+    {{ parent() }}
+
+    {% if product.extensions.bundleProducts is defined and product.extensions.bundleProducts|length > 0 %}
+        <span class="badge bg-info badge-product-bundle">
+            {{ 'Product Bundle'|trans|sw_sanitize }}
+        </span>
+    {% endif %}
+{% endblock %}

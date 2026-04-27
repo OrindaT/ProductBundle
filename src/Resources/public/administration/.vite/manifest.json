@@ -1,0 +1,11 @@
+{
+  "main.js": {
+    "file": "assets/product-bundle-DSoAGYIe.js",
+    "name": "product-bundle",
+    "src": "main.js",
+    "isEntry": true,
+    "css": [
+      "assets/product-bundle-RaADlbEL.css"
+    ]
+  }
+}
