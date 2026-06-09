@@ -1,5 +1,6 @@
 import './module/sw-product/page/sw-product-detail';
 import './module/sw-product/view/sw-product-detail-bundle';
+import './main.scss';
 
 Shopware.Module.register('sw-product-detail-bundle-tab', {
     routeMiddleware(next, currentRoute) {
